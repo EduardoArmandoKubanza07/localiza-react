@@ -35,7 +35,7 @@ export function AuthContextProcider({ children }) {
       });
 
       if (!token) {
-        result = "email ou senha incorrectos";
+        result = "E-mail ou senha incorrectos.";
         return;
       }
     });
@@ -49,7 +49,7 @@ export function AuthContextProcider({ children }) {
       let controller = true;
       users.forEach((user) => {
         if (user.email === newUser.email) {
-          result = "Já existe um usuário com este e-mail";
+          result = "Já existe um usuário com este e-mail.";
           controller = false;
           return;
         }
@@ -57,7 +57,7 @@ export function AuthContextProcider({ children }) {
 
       if (controller) {
         await setUsers(newUser).then(() => {
-          result = "Conta criada com sucesso";
+          result = "Conta criada com sucesso.";
         });
       }
     });

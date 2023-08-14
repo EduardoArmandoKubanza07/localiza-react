@@ -4,15 +4,15 @@ import { FaUserCircle } from "react-icons/fa";
 export function UserIcon({ icon, userName, handleOnClick, color }) {
   if (icon) {
     return (
-      <Container title={userName} onClick={handleOnClick} color={color}>
-        <img src={userName} alt={alt} />
+      <Container onClick={handleOnClick} color={color}>
+        <img src={icon} alt={userName} title={userName} />
+      </Container>
+    );
+  } else {
+    return (
+      <Container onClick={handleOnClick} color={color}>
+        <FaUserCircle title={userName} />
       </Container>
     );
   }
-
-  return (
-    <Container title={userName} onClick={handleOnClick} color={color}>
-      <FaUserCircle />
-    </Container>
-  );
 }

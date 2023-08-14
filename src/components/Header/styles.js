@@ -1,12 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-  width: 100%;
-  height: 4.5rem;
-  padding: 0 3%;
-  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,21 +10,87 @@ export const Container = styled.header`
   left: 0;
   z-index: 55;
 
-  > div {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    width: auto;
+  width: 100%;
+  height: 4.5rem;
+  padding: 0 4%;
+  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+`;
+
+export const Nav = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  > section {
+    position: relative;
   }
 `;
 
-export const NavLeft = styled.div``;
+export const SearchBar = styled.div`
+  width: 20rem;
+  height: 2.6rem;
+  background-color: #f5f5f5;
+  border: 2px solid #f5f5f5;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
 
-export const NavRight = styled.div`
-  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:focus-within {
+    border-color: ${({ theme }) => theme.colors.primary};
+
+    > svg {
+      color: ${({ theme }) => theme.colors.primary};
+    }
+  }
+
+  > svg {
+    font-size: 0.95rem;
+    color: #868686;
+  }
+
+  > input {
+    width: 100%;
+    height: 100%;
+    padding-left: 0.5rem;
+    background-color: transparent;
+
+    &::placeholder {
+      font-size: 0.9rem;
+    }
+  }
 `;
+
+export const SearchResult = styled.div`
+  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
+  width: 20rem;
+  padding: 1rem;
+  position: absolute;
+  top: 2.57rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0, 0.2);
+
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  > p {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  &.active {
+    display: block;
+  }
+`;
+
 export const MenuBar = styled.div`
-  width: 10rem;
+  width: 13rem;
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
@@ -46,7 +106,7 @@ export const MenuBar = styled.div`
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.3rem;
     padding-top: 1rem;
 
     li {

@@ -3,6 +3,7 @@ import { GlobalStyles } from "../styles/GlobalStyles";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { ThemeProvider } from "styled-components";
 import { useContext } from "react";
+import { PostContextProvider } from "../contexts/PostContext";
 import { AuthContextProcider } from "../contexts/AuthContext";
 
 export function AppRoutes() {
@@ -10,8 +11,10 @@ export function AppRoutes() {
   return (
     <ThemeProvider theme={theme}>
       <AuthContextProcider>
-        <Outlet />
-        <GlobalStyles />
+        <PostContextProvider>
+          <Outlet />
+          <GlobalStyles />
+        </PostContextProvider>
       </AuthContextProcider>
     </ThemeProvider>
   );

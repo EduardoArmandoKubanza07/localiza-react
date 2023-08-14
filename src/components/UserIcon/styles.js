@@ -17,10 +17,10 @@ export const Container = styled.section`
   > svg,
   img {
     border-radius: 50%;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 3rem;
+    height: 3rem;
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     color: #dddddd;
   }
 `;

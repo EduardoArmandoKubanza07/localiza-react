@@ -8,70 +8,129 @@ export const Container = styled.div`
 export const Main = styled.main`
   width: 100%;
   height: 100%;
-  padding: 6rem 3% 0 3%;
-
-  position: relative;
+  padding: 6rem 4% 2rem 4%;
 
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
 `;
 
-export const SideBar = styled.div`
-  width: 20rem;
-  position: fixed;
-  left: 3%;
-  top: 6rem;
-  height: auto;
-  padding: 1rem 0;
+export const NavBar = styled.nav`
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
+  width: 20rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  height: auto;
+  max-height: 80vh;
 
-  > ul {
-    list-style: none;
+  position: fixed;
+  top: 6rem;
+  left: 4%;
+
+  > button {
+    width: 100%;
+    height: 2.6rem;
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: 500;
+    font-size: 1.3rem;
+    transition: all 0.3s;
+    border-radius: 0.3rem;
+    border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3rem;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+      border-left-color: ${({ theme }) => theme.colors.primary};
+      padding: 1rem;
+    }
+
+    > svg {
+      font-size: 1.3rem;
+    }
+  }
+
+  > div {
+    width: 100%;
+    height: auto;
+    margin-top: 0.5rem;
+
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.1rem;
 
-    > li {
-      font-weight: 650;
-      font-size: 1.12rem;
-      padding-left: 2rem;
-      height: 2.3rem;
-      width: 100%;
-      cursor: pointer;
-      border-left: 4px solid transparent;
-      transition: all 0.3s;
+    > h1 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.primary};
+      margin-bottom: 0.3rem;
+    }
+
+    ul {
+      list-style: none;
 
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 0.15rem;
+      margin: 0.5rem;
 
-      &:hover {
-        color: ${({ theme }) => theme.colors.primary};
-        background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-        border-left-color: ${({ theme }) => theme.colors.primary};
-        padding-left: 0.5rem;
+      > li {
+        width: 100%;
+        height: 2rem;
+        font-weight: 500;
+        font-size: 1.08rem;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 0.3rem;
+        margin-bottom: 0.1rem;
+
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+          border-left-color: ${({ theme }) => theme.colors.primary};
+          padding: 1rem;
+        }
+
+        &.active {
+          background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+          border-left-color: ${({ theme }) => theme.colors.primary};
+          padding: 0.5rem;
+        }
       }
+    }
+
+    > button {
+      width: 100%;
+      height: 2.1rem;
+      background-color: transparent;
+      color: ${({ theme }) => theme.colors.primary};
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      border-radius: 0.3rem;
+      border-left: 3px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.3rem;
 
       &.active {
-        color: ${({ theme }) => theme.colors.primary};
         background-color: ${({ theme }) => theme.colors.backgroundPrimary};
         border-left-color: ${({ theme }) => theme.colors.primary};
+        padding: 0.5rem;
+      }
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+        border-left-color: ${({ theme }) => theme.colors.primary};
+        padding: 1rem;
       }
     }
   }
-`;
-
-export const Content = styled.section`
-  width: calc(100% - 27rem);
-  height: 100%;
-  position: absolute;
-  right: 3%;
-  top: 6rem;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 1rem;
 `;

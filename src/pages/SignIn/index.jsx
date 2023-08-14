@@ -15,12 +15,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthContext } from "../../contexts/AuthContext";
-import { Message } from "../../components/export";
+import { Message, Loading } from "../../components/export";
 
 export function SignIn() {
   document.title = "Localiza - Entrar ";
   const [inputPassType, setInputPassType] = useState("password");
   const [openMessage, setOpenMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { signin } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -43,8 +44,12 @@ export function SignIn() {
     resolver: zodResolver(handleOnSignInFormSchema),
   });
   async function handleOnSignIn(data) {
+    setIsLoading(true);
     const result = await signin(data.email, data.password);
-    if (result !== null) setOpenMessage(true);
+    if (result !== null) {
+      setIsLoading(false);
+      setOpenMessage(true);
+    }
   }
 
   return (
@@ -55,7 +60,7 @@ export function SignIn() {
           setOpenMessage(false);
         }}
       >
-        <p> E-mail ou senha incorrectos </p>
+        <p> E-mail ou senha incorrectos. </p>
       </Message>
       <Container>
         <LeftCard>
@@ -118,6 +123,8 @@ export function SignIn() {
           </Form>
         </RightCard>
       </Container>
+
+      {isLoading && <Loading />}
     </>
   );
 }

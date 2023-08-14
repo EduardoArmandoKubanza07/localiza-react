@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const circular = keyframes`
+const rotate = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -10,50 +10,18 @@ const circular = keyframes`
   }
 `;
 
-const anime = keyframes`
-  0% {
-    margin-left: 0;
-  } 
-  25% {
-    margin-left: 1.5rem;
-  }
-
-  50% {
-    margin-left: 0.75rem;
-  }
-  75% {
-    margin-left: 1.5rem
-  }
-
-  100% {
-    margin-left: 0;
-  }
-
-`;
-
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.7rem;
-
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  > p {
-    font-weight: 700;
-    animation: ${anime} 1s linear infinite;
-  }
-`;
+  z-index: 150;
 
-export const Load = styled.div`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
   border: 4px solid transparent;
   border-left-color: ${({ theme }) => theme.colors.primary};
   border-right-color: ${({ theme }) => theme.colors.primary};
-  border-radius: 50%;
-
-  animation: ${circular} 0.7s linear infinite;
+  animation: ${rotate} 0.5s linear infinite;
 `;

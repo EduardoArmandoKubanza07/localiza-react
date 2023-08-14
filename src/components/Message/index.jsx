@@ -1,20 +1,25 @@
-import { Container, Content } from "./styles";
-import { Logo } from "../export";
+import { Container, CloseModal } from "./styles";
 import { FaTimes } from "react-icons/fa";
 
-export function Message({ isOpen, closeMessage, children }) {
-  if (isOpen) {
-    return (
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
+
+export function Message({ text, isOpen, closeMessage, children }) {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={closeMessage}
+      className="content-modal"
+      overlayClassName="overlay-modal"
+    >
       <Container>
-        <Content>
-          <div>
-            <Logo width={"10rem"} />
-            <FaTimes title="Fechar" onClick={closeMessage} />
-          </div>
-          <section>{children}</section>
-        </Content>
+        <CloseModal title="Fechar" onClick={closeMessage}>
+          <FaTimes />
+        </CloseModal>
+
+        {children}
       </Container>
-    );
-  }
-  return null;
+    </Modal>
+  );
 }

@@ -19,7 +19,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthContext } from "../../contexts/AuthContext";
 import { v4 as uuid } from "uuid";
-import { Message } from "../../components/export";
+import { Message, Loading } from "../../components/export";
 
 export function SignUp() {
   document.title = "Localiza - Criar conta";
@@ -27,6 +27,7 @@ export function SignUp() {
   const [inputPassType, setInputPassType] = useState("password");
   const [openMessage, setOpenMessage] = useState(false);
   const [messageText, setMessageText] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const { signup } = useContext(AuthContext);
 
   const handleOnSignUpFormSchema = z.object({
@@ -62,6 +63,7 @@ export function SignUp() {
   });
 
   async function handleOnSignUp(data) {
+    setIsLoading(true);
     const newUser = {
       id: uuid(),
       name: data.name,
@@ -75,6 +77,7 @@ export function SignUp() {
 
     const result = await signup(newUser);
     if (result !== null) {
+      setIsLoading(false);
       setMessageText(result);
       setOpenMessage(true);
     }
@@ -88,11 +91,11 @@ export function SignUp() {
           setOpenMessage(false);
         }}
       >
-        {messageText === "Já existe um usuário com este e-mail" ? (
-          <p> Já existe um usuário com este e-mail</p>
+        {messageText === "Já existe um usuário com este e-mail." ? (
+          <p> Já existe um usuário com este e-mail.</p>
         ) : (
           <div>
-            <p> Conta criada com sucesso </p>
+            <p> Conta criada com sucesso. </p>
             <button
               onClick={() => {
                 navigate("/signin");
@@ -185,6 +188,8 @@ export function SignUp() {
           </Form>
         </RightCard>
       </Container>
+
+      {isLoading && <Loading />}
     </>
   );
 }

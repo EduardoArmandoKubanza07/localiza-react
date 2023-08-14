@@ -1,80 +1,102 @@
-import { Container, NavRight, NavLeft, MenuBar } from "./styles";
-import { Logo, UserIcon, UserName, OutInfo } from "../export";
-import { useState, useContext } from "react";
+import { Container, Nav, SearchBar, SearchResult, MenuBar } from "./styles";
+import { Logo, UserIcon, SignOut } from "../export";
+import { FaSearch } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { Searched } from "./Searched";
+import api from "../../services/config";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
 
-export function Header({ user, profile }) {
+export function Header({ user }) {
+  const [search, setSearch] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [resultSearch, setResultSearch] = useState([]);
+  const [result, setResult] = useState(false);
   const [menuHeight, setMenuHeight] = useState(0);
+  const [openSignOutModal, setOpenSignOutModal] = useState(false);
+
   const navigate = useNavigate();
-  const [openInfoOut, setOpenInfoOut] = useState(false);
-  const { signout } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async function getPost() {
+      const response = await api.get("posts");
+      return response.data;
+    })().then((data) => {
+      setPosts(data);
+    });
+  }, []);
+
+  // Função Pesquisar //
+  useEffect(() => {
+    if (search.trim()) {
+      setResult(true);
+
+      const searchResult = posts.filter((post) => {
+        return post.name.toLowerCase().includes(search.toLowerCase());
+      });
+
+      setResultSearch(searchResult);
+    } else {
+      setResult(false);
+    }
+  }, [search]);
 
   return (
-    <Container>
-      <OutInfo
-        isOpen={openInfoOut}
-        handleCancelBtnClick={() => {
-          setOpenInfoOut(false);
-        }}
-        handleConfirmBtnClick={signout}
-      />
-      <NavLeft>
-        <Logo width={"12rem"} />
-      </NavLeft>
-      <NavRight>
-        <UserName name={user?.name ? user.name : "Desconhecido"} />
-        <UserIcon
-          userName={user.name}
-          color={"#98ce00"}
-          icon={user.avatarUrl !== "" ? user.avatarUrl : null}
-          handleOnClick={() => {
-            setMenuHeight(menuHeight === 0 ? 7 : 0);
-          }}
-        />
+    <>
+      <Container>
+        <Logo width={12} />
 
-        <MenuBar height={menuHeight}>
-          {profile ? (
+        <Nav>
+          <section>
+            <SearchBar>
+              <FaSearch />
+              <input
+                type="search"
+                placeholder="Buscar no Localiza"
+                autoComplete="on"
+                value={search}
+                onInput={({ target }) => setSearch(target.value)}
+              />
+            </SearchBar>
+            <SearchResult className={result ? "active" : ""}>
+              {resultSearch.length === 0 ? (
+                <p> Pesquisa não encontrada </p>
+              ) : (
+                resultSearch.map((item) => (
+                  <Searched
+                    key={item.id}
+                    post={item}
+                    setResult={setResult}
+                    setSearch={setSearch}
+                  />
+                ))
+              )}
+            </SearchResult>
+          </section>
+
+          <UserIcon
+            icon={user.avatarUrl}
+            userName={user.name}
+            color="#98ce00"
+            handleOnClick={() => setMenuHeight(menuHeight === 0 ? 6.5 : 0)}
+          />
+
+          <MenuBar height={menuHeight}>
             <ul>
-              <li
-                title="Ir para o início"
-                onClick={() => {
-                  navigate("/home");
-                }}
-              >
-                Início
-              </li>
-              <li
-                title="Terminar sessão"
-                onClick={() => {
-                  setOpenInfoOut(true);
-                }}
-              >
-                Sair
+              <li onClick={() => navigate("/home")}> Início </li>
+
+              <li title="Sair" onClick={() => setOpenSignOutModal(true)}>
+                Terminar sessão
               </li>
             </ul>
-          ) : (
-            <ul>
-              <li
-                title="Ir para o perfil"
-                onClick={() => {
-                  navigate("/profile");
-                }}
-              >
-                Perfil
-              </li>
-              <li
-                title="Terminar sessão"
-                onClick={() => {
-                  setOpenInfoOut(true);
-                }}
-              >
-                Sair
-              </li>
-            </ul>
-          )}
-        </MenuBar>
-      </NavRight>
-    </Container>
+          </MenuBar>
+        </Nav>
+      </Container>
+
+      <SignOut
+        isOpen={openSignOutModal}
+        setIsOpen={setOpenSignOutModal}
+        setMenuHeight={setMenuHeight}
+      />
+    </>
   );
 }

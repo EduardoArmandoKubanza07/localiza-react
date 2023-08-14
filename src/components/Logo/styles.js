@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-export const Container = styled.img.attrs({
-  alt: "Localiza",
-})`
+export const Container = styled.img`
   margin-left: -1rem;
-  height: 9.5rem;
-  width: ${(props) => props.width};
+  height: 10rem;
+  width: ${({ width }) => width + "rem"};
 `;

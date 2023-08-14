@@ -1,32 +1,31 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Container } from "./styles";
 import { FaArrowUp } from "react-icons/fa";
 
 export function Elevator() {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      window.pageYOffset > 0 ? setActive(true) : setActive(false);
+    });
+  }, []);
+
   const backTop = useCallback(() => {
     window.scroll({
       top: 0,
-      left: 9,
+      left: 0,
       behavior: "smooth",
     });
   }, []);
 
   return (
     <Container
-      className="elevator"
-      title="Voltar para o totpo"
+      className={active ? "active" : ""}
+      title="Voltar ao topo"
       onClick={backTop}
     >
       <FaArrowUp />
     </Container>
   );
 }
-
-window.addEventListener("scroll", () => {
-  const elevator = document.querySelector(".elevator");
-  if (window.pageYOffset > 0) {
-    elevator.classList.add("active");
-  } else {
-    elevator.classList.remove("active");
-  }
-});

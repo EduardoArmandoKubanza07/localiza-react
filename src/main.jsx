@@ -2,15 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { AppRoutes } from "./routes";
 import { PrivateRoute } from "./routes/PrivateRoute";
-import {
-  Landing,
-  Home,
-  Profile,
-  SignIn,
-  SignUp,
-  PostDetails,
-  Admin,
-} from "./pages/export";
+import { Landing, Profile, SignIn, SignUp, Home } from "./pages/export";
 import {
   createBrowserRouter,
   Navigate,
@@ -27,6 +19,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Landing />,
       },
+
       {
         path: "/signin",
         element: <SignIn />,
@@ -50,14 +43,6 @@ const router = createBrowserRouter([
             <Profile />
           </PrivateRoute>
         ),
-      },
-      {
-        path: "/post/:id",
-        element: <PostDetails />,
-      },
-      {
-        path: "/admin",
-        element: <Admin />,
       },
       {
         path: "*",

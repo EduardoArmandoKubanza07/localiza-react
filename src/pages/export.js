@@ -1,9 +1,7 @@
-import { Home } from "./Home";
-import { Admin } from "./Admin";
 import { Profile } from "./Profile";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { Landing } from "./Landing";
-import { PostDetails } from "./PostDetails";
+import { Home } from "./Home";
 
-export { Home, Admin, Profile, SignIn, SignUp, Landing, PostDetails };
+export { Profile, SignIn, SignUp, Landing, Home };

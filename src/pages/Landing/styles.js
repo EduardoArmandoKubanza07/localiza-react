@@ -244,7 +244,7 @@ export const AllPosts = styled.div`
   width: 100%;
   height: auto;
 
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 `;

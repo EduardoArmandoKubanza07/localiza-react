@@ -46,34 +46,38 @@ export function Landing() {
     setFilters(filteredPosts);
   }, [search]);
 
-  async function filterPosts(type) {
-    if (type === "mans") {
-      const mans = posts.filter((post) => {
-        return post.gender === "Masculino";
-      });
+  function filterPosts(type) {
+    switch (type) {
+      case "geral":
+        return setFilters(posts);
+      case "mans":
+        const mans = posts.filter((post) => {
+          return post.gender === "Masculino";
+        });
 
-      return setFilters(mans);
-    } else if (type === "womans") {
-      const womans = posts.filter((post) => {
-        return post.gender === "Feminino";
-      });
+        return setFilters(mans);
+      case "womans":
+        const womans = posts.filter((post) => {
+          return post.gender === "Feminino";
+        });
 
-      return setFilters(womans);
-    } else if (type === "finded") {
-      const findeds = posts.filter((post) => {
-        return post.status === "Achado";
-      });
+        return setFilters(womans);
+      case "finded":
+        const findeds = posts.filter((post) => {
+          return post.status === "Achado";
+        });
 
-      return setFilters(findeds);
-    } else if (type === "disap") {
-      const disap = posts.filter((post) => {
-        return post.status === "Desaparecido";
-      });
+        return setFilters(findeds);
+      case "disap":
+        const disap = posts.filter((post) => {
+          return post.status === "Desaparecido";
+        });
 
-      return setFilters(disap);
+        return setFilters(disap);
+      default:
+        return;
     }
   }
-
   if (isLoading) return <Loading />;
 
   return (
@@ -115,53 +119,6 @@ export function Landing() {
 
         <Content>
           <Filter height={filterHeight}>
-            <section>
-              <button
-                title="Buscas por filtro"
-                onClick={() => {
-                  setFilterHeight(filterHeight === 0 ? 10 : 0);
-                }}
-              >
-                <FaFilter />
-                Filtros
-              </button>
-              <div>
-                <ul>
-                  <li
-                    title="Pessoas desaparecidas"
-                    onClick={() => {
-                      filterPosts("disap");
-                    }}
-                  >
-                    Desaparecidos
-                  </li>
-                  <li
-                    title="Pessoas achadas"
-                    onClick={() => {
-                      filterPosts("finded");
-                    }}
-                  >
-                    Achado
-                  </li>
-                  <li
-                    title="Homens"
-                    onClick={() => {
-                      filterPosts("mans");
-                    }}
-                  >
-                    Homens
-                  </li>
-                  <li
-                    title="Mulheres"
-                    onClick={() => {
-                      filterPosts("womans");
-                    }}
-                  >
-                    Mulheres
-                  </li>
-                </ul>
-              </div>
-            </section>
             <div>
               <FaSearch />
               <input

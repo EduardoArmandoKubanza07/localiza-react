@@ -1,52 +1,14 @@
-import { Container, Filter, Content } from "./styles";
-import { useState } from "react";
-import { FaFilter, FaSearch } from "react-icons/fa";
-import { useFetch } from "../../hooks/useFetch";
+import { Container, Content } from "./styles";
 import { Post } from "./Post";
+import { Filters } from "../../components/export";
 
-export function Posts({ _class }) {
-  const [filterHeight, setFilterHeight] = useState(0);
-  const [posts, setPosts] = useState([]);
-
-  const { data } = useFetch("posts");
-
-  if (!data) return null;
-
+export function Posts({ search, setSearch, filteredPosts }) {
   return (
-    <Container className={_class}>
-      <Filter height={filterHeight}>
-        <section>
-          <button
-            title="Buscas por filtro"
-            onClick={() => {
-              setFilterHeight(filterHeight === 0 ? 10 : 0);
-            }}
-          >
-            <FaFilter />
-            Filtros
-          </button>
-          <div>
-            <ul>
-              <li title="Pessoas desaparecidas"> Desaparecidos </li>
-              <li title="Pessoas achadas"> Achados </li>
-              <li title="Homens"> Homens </li>
-              <li title="Mulheres"> Mulheres </li>
-            </ul>
-          </div>
-        </section>
-        <div>
-          <FaSearch />
-          <input
-            type="search"
-            placeholder="Pesquisar no Localiza"
-            autoComplete="on"
-          />
-        </div>
-      </Filter>
-
+    <Container>
+      <Filters search={search} setSearch={setSearch} />
       <Content>
-        {data.map((post) => (
-          <Post post={post} key={post.id} />
+        {filteredPosts.toReversed().map((post) => (
+          <Post key={post.id} post={post} />
         ))}
       </Content>
     </Container>
